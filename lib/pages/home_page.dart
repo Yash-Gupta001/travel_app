@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // menu TEXT
+          // ignore: avoid_unnecessary_containers
           Container(
             child: Padding(
               padding: const EdgeInsets.only(top: 70, left: 20),
@@ -61,6 +62,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
 
           // TABBAR
+          // ignore: avoid_unnecessary_containers
           Container(
             child: Align(
               alignment: Alignment.centerLeft,
@@ -165,7 +167,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.white,
                         image: DecorationImage(
-                          image: AssetImage('assets/img/' + images.keys.elementAt(index)),
+                          image: AssetImage('assets/img/${images.keys.elementAt(index)}'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -198,6 +200,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 }
 
+// ignore: must_be_immutable
 class CircleTabIndicator extends Decoration {
   final Color color;
   double radius;
