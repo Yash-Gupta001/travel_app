@@ -147,51 +147,60 @@ class _DetailPageState extends State<DetailPage> {
                               margin: EdgeInsets.only(right: 10),
                               child: AppButtons(
                                 size: 50,
-                                color: selectedindex == index? Colors.white : Colors.black,
-                                borderColor: selectedindex == index?Colors.black : AppColors.buttonBackground,
-                                backgroundColor: AppColors.buttonBackground,
+                                color: selectedindex == index
+                                    ? Colors.white
+                                    : Colors.black,
+                                borderColor: selectedindex == index
+                                    ? Colors.black
+                                    : AppColors.buttonBackground,
+                                backgroundColor: selectedindex == index
+                                    ? Colors.black
+                                    : AppColors.buttonBackground,
                                 text: (index + 1).toString(),
                               ),
                             ),
                           );
                         }),
                       ),
-                      SizedBox(height: 20,),
-                      AppLargeText(text: 'Description',
-                      color: Colors.black.withOpacity(0.8),
+                      SizedBox(
+                        height: 20,
                       ),
-                      SizedBox(height: 10,),
-                      AppText(text: 'You must go for a travel. Travelling helps get rid of pressure. Go to Mountains', color: AppColors.mainColor,)
+                      AppLargeText(
+                        text: 'Description',
+                        color: Colors.black.withOpacity(0.8),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      AppText(
+                        text:
+                            'You must go for a travel. Travelling helps get rid of pressure. Go to Mountains',
+                        color: AppColors.mainColor,
+                      )
                     ],
                   ),
                 )),
 
             Positioned(
-              bottom: 20,
-              left: 20,
-              right: 20,
-              child: 
-                Row(
+                bottom: 20,
+                left: 20,
+                right: 20,
+                child: Row(
                   children: [
                     AppButtons(
-                      size: 60, 
-                      color: AppColors.textColor1, 
-                      backgroundColor: Colors.white, 
+                      size: 60,
+                      color: AppColors.textColor1,
+                      backgroundColor: Colors.white,
                       borderColor: AppColors.textColor1,
                       isIcon: true,
                       icon: Icons.favorite,
-                      ),
-
+                    ),
                     SizedBox(width: 20),
                     ResponsiveButton(
                       isResponsive: true,
-
                     )
-
                   ],
-
-
-            ))
+                ))
           ],
         ),
       ),
