@@ -6,10 +6,10 @@ class DataService{
     var apiUrl = '/getplaces';
     http.Response res = await http.get(Uri.parse(baseUrI+apiUrl));
     try{
-      
+
     }
     catch(e){
-
+      
     }
   }
 }
