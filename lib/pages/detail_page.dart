@@ -3,6 +3,7 @@ import 'package:travel_app/misc/colors.dart';
 import 'package:travel_app/widgets/app_buttons.dart';
 import 'package:travel_app/widgets/app_large_text.dart';
 import 'package:travel_app/widgets/app_text.dart';
+import 'package:travel_app/widgets/responsive_button.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
@@ -13,6 +14,7 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   int gotratingStar = 3;
+  int selectedindex = -1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +80,6 @@ class _DetailPageState extends State<DetailPage> {
                       SizedBox(
                         height: 10,
                       ),
-                      
                       Row(
                         children: [
                           Icon(
@@ -97,49 +98,100 @@ class _DetailPageState extends State<DetailPage> {
                       SizedBox(
                         height: 20,
                       ),
-                      
                       Row(
                         children: [
                           Wrap(
                             children: List.generate(5, (index) {
                               return Icon(
                                 Icons.star,
-                                color: index < gotratingStar ? AppColors.starColor : AppColors.textColor2,
+                                color: index < gotratingStar
+                                    ? AppColors.starColor
+                                    : AppColors.textColor2,
                               );
                             }),
                           ),
-                          SizedBox(width: 10,),
-                          AppText(text: '(4.0)', color: AppColors.textColor2,)
+                          SizedBox(
+                            width: 10,
+                          ),
+                          AppText(
+                            text: '(4.0)',
+                            color: AppColors.textColor2,
+                          )
                         ],
                       ),
-                      SizedBox(height: 25,),
-
-                      AppLargeText(text: 'People', color: Colors.black.withOpacity(0.8),size: 20,),
-                      SizedBox(height: 5,),
-
-                      AppText(text: "Number of people in your group",color: AppColors.mainTextColor,),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      AppLargeText(
+                        text: 'People',
+                        color: Colors.black.withOpacity(0.8),
+                        size: 20,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      AppText(
+                        text: "Number of people in your group",
+                        color: AppColors.mainTextColor,
+                      ),
                       SizedBox(height: 10),
-
                       Wrap(
-                        children: 
-                          List.generate(5, (index) {
-                            return Container(
+                        children: List.generate(5, (index) {
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedindex = index;
+                              });
+                            },
+                            child: Container(
                               margin: EdgeInsets.only(right: 10),
                               child: AppButtons(
                                 size: 50,
-                                color: Colors.black, 
-                                borderColor: AppColors.buttonBackground, 
+                                color: selectedindex == index? Colors.white : Colors.black,
+                                borderColor: selectedindex == index?Colors.black : AppColors.buttonBackground,
                                 backgroundColor: AppColors.buttonBackground,
                                 text: (index + 1).toString(),
-                              
-                                ),
-                            );
-                          }),
+                              ),
+                            ),
+                          );
+                        }),
                       ),
-                    
+                      SizedBox(height: 20,),
+                      AppLargeText(text: 'Description',
+                      color: Colors.black.withOpacity(0.8),
+                      ),
+                      SizedBox(height: 10,),
+                      AppText(text: 'You must go for a travel. Travelling helps get rid of pressure. Go to Mountains', color: AppColors.mainColor,)
                     ],
                   ),
                 )),
+
+            Positioned(
+              bottom: 20,
+              left: 20,
+              right: 20,
+              child: 
+                Row(
+                  children: [
+                    AppButtons(
+                      size: 60, 
+                      color: AppColors.textColor1, 
+                      backgroundColor: Colors.white, 
+                      borderColor: AppColors.textColor1,
+                      isIcon: true,
+                      icon: Icons.favorite,
+                      ),
+
+                    SizedBox(width: 20),
+                    ResponsiveButton(
+                      isResponsive: true,
+
+                    )
+
+                  ],
+
+
+            ))
           ],
         ),
       ),
