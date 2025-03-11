@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:travel_app/model/data_model.dart';
 
 abstract class CubitStates extends Equatable{}
@@ -24,9 +23,7 @@ class WelcomeState extends CubitStates{
 class LoadingState extends CubitStates{
   @override
   // TODO: implement props
-  List<Object> get props => [
-    CircularProgressIndicator()
-  ];
+  List<Object> get props => [];
   
 }
 
