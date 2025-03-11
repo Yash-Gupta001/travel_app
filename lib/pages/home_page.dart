@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel_app/cubit/app_cubit.dart';
+import 'package:travel_app/cubit/app_cubit_states.dart';
 import 'package:travel_app/misc/colors.dart';
 import 'package:travel_app/widgets/app_large_text.dart';
 import 'package:travel_app/widgets/app_text.dart';
@@ -12,16 +15,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   var images = {
-    "balloning.png" : "Balloning",
-    "hicking.png" : "Hicking",
-    "kayaking.png" : "Kayaking",
-    "snorkling.png" : "Paragliding",
+    "balloning.png": "Balloning",
+    "hicking.png": "Hicking",
+    "kayaking.png": "Kayaking",
+    "snorkling.png": "Paragliding",
   };
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 3, vsync: this);
     return Scaffold(
-      body: Column(
+      body: BlocBuilder<AppCubit, CubitStates>(builder: (context, state){
+
+        if (state is LoadedState) {
+          var info = state.places;
+          return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // menu TEXT
@@ -96,19 +103,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             width: double.maxFinite,
             child: TabBarView(controller: _tabController, children: [
               ListView.builder(
-                itemCount: 3,
+                itemCount: info.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: const EdgeInsets.only(right: 15, top: 10),
-                    width: 200,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                      image: DecorationImage(
-                        image: AssetImage('assets/img/mountain.jpeg'),
-                        fit: BoxFit.cover,
+                  return GestureDetector(
+                     onTap: () {
+                        BlocProvider.of<AppCubit>(context).detailPage(info[index]);
+                      },
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 15, top: 10),
+                      width: 200,
+                      height: 300,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        image: DecorationImage(
+                          image: NetworkImage("http://mark.bslmeivu.com/uploads" + info[index].img),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   );
@@ -159,19 +171,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      // margin: const EdgeInsets.only(right: 50),
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                        image: DecorationImage(
-                          image: AssetImage('assets/img/${images.keys.elementAt(index)}'),
-                          fit: BoxFit.cover,
+
+
+
+                      Container(
+                        // margin: const EdgeInsets.only(right: 50),
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          image: DecorationImage(
+                            image: AssetImage('assets/img/${images.keys.elementAt(index)}'),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
+                    
 
                     SizedBox(
                       height: 9,
@@ -195,7 +211,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
 
         ],
-      ),
+      );
+    
+        } 
+        
+        else {
+          return Container();
+        }
+      }),
     );
   }
 }
